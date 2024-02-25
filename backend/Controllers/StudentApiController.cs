@@ -26,10 +26,7 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("username") == null)
-            {
-                return RedirectToAction("Login", "User");
-            }
+
             var students = _studentRepository.GetStudents();
             return Ok(students);
         }
