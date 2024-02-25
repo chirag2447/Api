@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mvc.Models
+namespace backend.Models
 {
     public class UserModel
     {
-         public int? c_id {get;set;}
+        public int? c_id {get;set;}
         public string c_username {get;set;}
         public string c_email {get;set;}
         public string c_password {get;set;}

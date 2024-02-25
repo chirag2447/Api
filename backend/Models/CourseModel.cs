@@ -1,4 +1,4 @@
-namespace Mvc.Models
+namespace backend.Models
 {
     public class CourseModel
     {
