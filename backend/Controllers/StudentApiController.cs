@@ -44,7 +44,7 @@ namespace backend.Controllers
             if (student.Photo != null)
             {
                 student.c_profile = student.Photo.FileName;
-                var path = "../frontend/wwwroot/images" + student.Photo.FileName;
+                var path = "../frontend/wwwroot/images/" + student.Photo.FileName;
                 using (var stream = System.IO.File.Create(path))
                 {
                     student.Photo.CopyTo(stream);
