@@ -3,13 +3,13 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Student</title>
-  <!-- Bootstrap CSS link -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-   body {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
             margin-bottom: 100px;
             /* Adjust as per your footer's height */
             background-color: #dbd5d5;
@@ -69,21 +69,21 @@
 
 <body>
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            Update Student Information
-          </div>
-          <div class="card-body">
-            <form action="editstudent" method="post" enctype="multipart/form-data">
-              <!-- Student Name -->
-              <input type="hidden" asp-for="c_id" />
-              <div class="form-group">
-                <label for="c_name">Student Name</label>
-                <input type="text" asp-for="c_name" class="form-control" id="c_name" />
-              </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        Update Student Information
+                    </div>
+                    <div class="card-body">
+                        <form id="editForm" enctype="multipart/form-data">
+                            <!-- Student Name -->
+                            <input type="hidden" asp-for="c_id" />
+                            <div class="form-group">
+                                <label for="c_name">Student Name</label>
+                                <input type="text" asp-for="c_name" class="form-control" id="c_name" />
+                            </div>
 
                             <!-- Date of Birth -->
                             <div class="form-group">
@@ -119,10 +119,10 @@
                             <!-- Course -->
                             <div class="form-group">
                                 <label class="label" for="c_course">Course:</label>
-                                <select asp-for="c_course" asp-items="ViewBag.Courses" class="form-control">
+                                <select asp-for="c_course" id="c_course" class="form-control">
                                     <option value="" selected disabled>Select a course</option>
                                 </select>
-                            </div> 
+                            </div>
 
                             <div class="form-group">
                                 <label class="label" for="c_phone">Phone:</label>
@@ -149,6 +149,71 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Function to handle form submission
+            $("#editForm").submit(function (event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // AJAX request to edit student API
+                $.ajax({
+                    url: "http://localhost:5178/StudentApi",
+                    type: "PUT",
+                    data: formData,
+                    success: function (response) {
+                        // Handle success response
+                        console.log("Success:", response);
+                        // Redirect to desired page or show success message
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error("Error:", error);
+                        // Show error message to user
+                    }
+                });
+            });
+
+            // Function to retrieve the list of courses
+            function getCourses() {
+                // AJAX request to fetch courses
+                $.ajax({
+                    url: "http://localhost:5178/GetCourses",
+                    type: "GET",
+                    success: function (response) {
+                        // Handle success response
+                        console.log("Courses:", response);
+                        // Populate course dropdown with retrieved courses
+                        populateCoursesDropdown(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error("Error:", error);
+                        // Show error message to user
+                    }
+                });
+            }
+
+            // Function to populate course dropdown with retrieved courses
+            function populateCoursesDropdown(courses) {
+                var $dropdown = $("#c_course");
+                $dropdown.empty();
+                $dropdown.append($('<option value="" selected disabled>Select a course</option>'));
+                $.each(courses, function (index, course) {
+                    $dropdown.append($('<option></option>').attr('value', course.c_id).text(course.c_name));
+                });
+            }
+
+            // Call the function to retrieve courses when the page loads
+            getCourses();
+        });
+    </script>
 
 </body>
 

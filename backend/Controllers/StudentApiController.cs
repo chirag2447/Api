@@ -56,8 +56,7 @@ namespace backend.Controllers
             return Ok("Student added");
         }
 
-        [HttpGet]
-        [Route("/{id}")]
+        [HttpGet("{id}")]
         public IActionResult EditStudent(int id)
         {
             var student = _studentRepository.GetStudent(id);
