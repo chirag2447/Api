@@ -26,7 +26,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
             var students = _studentRepository.GetStudents();
             return Ok(students);
         }
@@ -44,7 +47,7 @@ namespace backend.Controllers
             if (student.Photo != null)
             {
                 student.c_profile = student.Photo.FileName;
-                var path = "wwwroot/images/" + student.Photo.FileName;
+                var path = "../frontend/wwwroot/images" + student.Photo.FileName;
                 using (var stream = System.IO.File.Create(path))
                 {
                     student.Photo.CopyTo(stream);
@@ -72,7 +75,7 @@ namespace backend.Controllers
             if (student.Photo != null)
             {
                 student.c_profile = student.Photo.FileName;
-                var path = "wwwroot/images/" + student.Photo.FileName;
+                var path = "../frontend/wwwroot/images/" + student.Photo.FileName;
                 using (var stream = System.IO.File.Create(path))
                 {
                     student.Photo.CopyTo(stream);
