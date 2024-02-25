@@ -13,17 +13,8 @@
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
 
                                 <hr />
-                                @if (TempData["smsg"] != null)
-                                {
 
-                                    <div class="alert alert-success">@TempData["smsg"]</div>
-                                }
-                                @if (TempData["msg"] != null)
-                                {
-
-                                    <div class="alert alert-danger">@TempData["msg"]</div>
-                                }
-                                <form class="mx-1 mx-md-4" method="post" asp-action="login">
+                                <form id="loginForm" class="mx-1 mx-md-4">
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -59,39 +50,57 @@
     </div>
 </section>
 
+@section Scripts {
+    <script>
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
+            var FromData = $(this).serialize();
+
+            $.ajax({
+                type: "Post",
+                url: "http://localhost:5178/UserApi/Login",
+                data: FromData,
+                success: function () {
+                    window.location.href = "../home/index";
+                }
+            })
+        })
+    </script>
+}
+
 @* ajax code *@
 @* @section Scripts{
 <script>
-  $(document).ready(() => {
-    $("form").validate({
-      rules: {
-        c_uemail: {
-          required: true,
-          email: true,
-        },
-        c_upassword:{
-            required:true,
-        }
-      },
-      messages: {
-        c_uemail: {
-          required: "Email is required",
-          email: "Please Enter valid email address",
-        },
-        c_upassword:{
-            required:"Password is required"
-        }
-      },
-      errorElement: "div",
-      errorPlacement: function (error, element) {
-        // Customized error placement
-        error.addClass("text-danger");
-        error.insertAfter(element);
-      },
-    });
-    $("form input").on("focusout keypress change", function () {
-      $(this).valid();
-    });
-  });
+$(document).ready(() => {
+$("form").validate({
+rules: {
+c_uemail: {
+required: true,
+email: true,
+},
+c_upassword:{
+required:true,
+}
+},
+messages: {
+c_uemail: {
+required: "Email is required",
+email: "Please Enter valid email address",
+},
+c_upassword:{
+required:"Password is required"
+}
+},
+errorElement: "div",
+errorPlacement: function (error, element) {
+// Customized error placement
+error.addClass("text-danger");
+error.insertAfter(element);
+},
+});
+$("form input").on("focusout keypress change", function () {
+$(this).valid();
+});
+});
 </script>
 } *@

@@ -12,12 +12,8 @@
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
                                 <hr />
-                                @if (ViewBag.msg != null)
-                                {
 
-                                    <div class="alert alert-danger">@ViewBag.msg</div>
-                                }
-                                <form class="mx-1 mx-md-4" method="post" asp-controller="User" asp-action="Register">
+                                <form id="registerForm" class="mx-1 mx-md-4">
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
@@ -52,8 +48,9 @@
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <button type="submit" class="btn btn-primary btn-lg">Register</button>
                                     </div>
-                                    <p style="color: blue;"> Already a user? <a asp-action="Login">Login </a> <p>
-                        
+                                    <p style="color: blue;"> Already a user? <a asp-action="Login">Login </a>
+                                    <p>
+
                                 </form>
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
@@ -67,3 +64,34 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#registerForm').submit(function (event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // Send form data via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:5178/UserApi/Register', // Use the correct URL here
+                    data: formData,
+                    success: function (response) {
+                        // Handle the response
+                        console.log(response);
+                        window.location.href = "login";
+                        // Redirect to a new page or show a success message
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+}

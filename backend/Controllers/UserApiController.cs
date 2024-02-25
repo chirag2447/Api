@@ -11,8 +11,8 @@ using backend.Repositories;
 namespace backend.Controllers
 {
 
-[ApiController]
-[Route("[controller]")]
+    [ApiController]
+    [Route("[controller]")]
     public class UserApiController : ControllerBase
     {
         private readonly ILogger<UserApiController> _logger;
@@ -34,8 +34,8 @@ namespace backend.Controllers
         // }
 
         [HttpPost]
-            [Route("Login")]
-        public IActionResult Login(UserModel user)
+        [Route("Login")]
+        public IActionResult Login([FromForm] UserModel user)
         {
             if (_userRepository.Login(user))
             {
@@ -56,7 +56,7 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public IActionResult Register(UserModel user)
+        public IActionResult Register([FromForm] UserModel user)
         {
             if (!_userRepository.IsUser(user.c_email))
             {
@@ -73,6 +73,6 @@ namespace backend.Controllers
             return Ok("Login");
         }
 
-        
+
     }
 }

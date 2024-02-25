@@ -18,16 +18,23 @@ namespace frontend.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult Display()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-            [HttpGet]
+        [HttpGet]
         public IActionResult Edit()
         {
             return View();
