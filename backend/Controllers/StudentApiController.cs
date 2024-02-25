@@ -101,6 +101,14 @@ namespace backend.Controllers
             return Ok("Index");
         }
 
+        [HttpGet]
+        [Route("/GetCourses")]
+        public IActionResult GetCourses()
+        {
+            var courses = _studentRepository.GetCourses();
+            return Ok(courses);
+        }
+
 
         // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         // public IActionResult Error()
