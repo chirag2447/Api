@@ -1,5 +1,5 @@
-using Mvc.Models;
-namespace Mvc.Repositories;
+using backend.Models;
+namespace backend.Repositories;
 
 public interface IUserRepository
 {

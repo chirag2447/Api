@@ -1,7 +1,7 @@
-using Mvc.Models;
+using backend.Models;
 using Npgsql;
 
-namespace Mvc.Repositories;
+namespace backend.Repositories;
 
 public class StudentRepository : IStudentRepository
 {

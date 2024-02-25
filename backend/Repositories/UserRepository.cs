@@ -1,6 +1,6 @@
 using Npgsql;
-using Mvc.Models;
-using Mvc.Repositories;
+using backend.Models;
+using backend.Repositories;
 using Microsoft.AspNetCore.Identity;
 
 
