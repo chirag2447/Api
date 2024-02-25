@@ -11,8 +11,9 @@ using backend.Repositories;
 
 namespace backend.Controllers
 {
-
-    public class StudentApiController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class StudentApiController : ControllerBase
     {
         private readonly ILogger<StudentApiController> _logger;
         private readonly IStudentRepository _studentRepository;
@@ -22,25 +23,23 @@ namespace backend.Controllers
             _studentRepository = studentRepository;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("username") == null)
-            {
-                return RedirectToAction("Login", "User");
-            }
+
             var students = _studentRepository.GetStudents();
-            return View(students);
+            return Ok(students);
         }
 
-        public IActionResult AddStudent()
-        {
-            var courses = _studentRepository.GetCourses();
-            ViewBag.Courses = new SelectList(courses, "c_id", "c_name");
-            return View();
-        }
+        // public IActionResult AddStudent()
+        // {
+        //     var courses = _studentRepository.GetCourses();
+        //     ViewBag.Courses = new SelectList(courses, "c_id", "c_name");
+        //     return View();
+        // }
 
         [HttpPost]
-        public IActionResult AddStudent(StudentModel student)
+        public IActionResult AddStudent([FromForm] StudentModel student)
         {
             if (student.Photo != null)
             {
@@ -54,19 +53,21 @@ namespace backend.Controllers
             }
 
             _studentRepository.AddStudent(student);
-            return RedirectToAction("Index");
+            return Ok("Student added");
         }
 
+        [HttpGet]
+        [Route("/{id}")]
         public IActionResult EditStudent(int id)
         {
             var student = _studentRepository.GetStudent(id);
             var course = _studentRepository.GetCourses();
-            ViewBag.Courses = new SelectList(course, "c_id", "c_name");
-            return View(student);
+            // ViewBag.Courses = new SelectList(course, "c_id", "c_name");
+            return Ok(student);
         }
 
-        [HttpPost]
-        public IActionResult EditStudent(StudentModel student)
+        [HttpPut]
+        public IActionResult EditStudent([FromForm] StudentModel student)
         {
             if (student.Photo != null)
             {
@@ -90,20 +91,21 @@ namespace backend.Controllers
 
 
             _studentRepository.UpdateStudent(student);
-            return RedirectToAction("Index");
+            return Ok("Index");
         }
 
+        [HttpDelete]
         public IActionResult DeleteStudent(int id)
         {
             _studentRepository.DeleteStudent(id);
-            return RedirectToAction("Index");
+            return Ok("Index");
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+        // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        // public IActionResult Error()
+        // {
+        //     return View("Error!");
+        // }
     }
 }
