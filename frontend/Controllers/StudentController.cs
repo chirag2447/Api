@@ -18,13 +18,7 @@ namespace frontend.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Display()
         {
             return View();
         }
