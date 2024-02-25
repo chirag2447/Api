@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 
 
-namespace Mvc.Repositories;
+namespace backend.Repositories;
 
 public class UserRepository : IUserRepository
 {
