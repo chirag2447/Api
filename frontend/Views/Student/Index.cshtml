@@ -65,7 +65,7 @@
             console.log("inside delete");
             // Make an AJAX request to delete student
             $.ajax({
-                url: 'http://localhost:5178/' + id,
+                url: 'http://localhost:5178/StudentApi/' + id,
                 type: 'DELETE',
                 success: function (data) {
                     // Refresh student list after deletion
