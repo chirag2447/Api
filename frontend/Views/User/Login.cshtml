@@ -60,8 +60,16 @@
                 type: "Post",
                 url: "http://localhost:5178/UserApi/Login",
                 data: FromData,
-                success: function () {
-                    window.location.href = "../home/index";
+                success: function (data) {
+                    localStorage.username = data;
+                    console.log(data);
+                    if (data == "wrong") {
+                        alert("Invalid Email or Password");
+                    }
+                    else {
+                        window.location.href = "../student/index";
+
+                    }
                 }
             })
         })

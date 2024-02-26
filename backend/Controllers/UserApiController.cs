@@ -39,7 +39,8 @@ namespace backend.Controllers
         {
             if (_userRepository.Login(user))
             {
-                return Ok("Index");
+                var username = HttpContext.Session.GetString("username");
+                return Ok(username);
             }
             else
             {
