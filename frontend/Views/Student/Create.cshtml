@@ -160,6 +160,7 @@
                 type: "GET",
                 url: "http://localhost:5178/GetCourses", // Use the correct URL for your action
                 success: function (data) {
+                    
                     // Clear existing options
 
                     $.each(data, function (index, course) {
@@ -182,7 +183,7 @@
 
                     success: function (response) {
                         console.log(response);
-                        window.location.href = "index"; // Redirect to index page
+                        window.location.href = "Index";
                     }
                 });
             })
