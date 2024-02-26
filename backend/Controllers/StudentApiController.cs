@@ -94,7 +94,8 @@ namespace backend.Controllers
             return Ok("Index");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        
         public IActionResult DeleteStudent(int id)
         {
             _studentRepository.DeleteStudent(id);
