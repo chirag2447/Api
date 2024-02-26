@@ -38,21 +38,22 @@
                             '';
 
                         var row = `<tr>
-                                                            <td>${student.c_id}</td>
-                                                            <td>${student.c_name}</td>
-                                                            <td>${student.c_dob}</td>
-                                                            <td>${student.c_gender}</td>
-                                                            <td>${student.c_address}</td>
-                                                            <td>${languages}</td>
-                                                            <td>${student.c_course}</td>
-                                                            <td>${profileImage}</td>
-                                                            <td>${student.c_phone}</td>
-                                                            <td>
-                                                                <a href="/Student/Edit/${student.c_id}" class="btn btn-primary">Edit</a>
-                                                                <p> </p>
-                                                                <a href="Student/Delete/${student.c_id}" class="btn btn-danger">Delete</a>
-                                                            </td>
-                                                        </tr>`;
+                                                                <td>${student.c_id}</td>
+                                                                <td>${student.c_name}</td>
+                                                                <td>${student.c_dob}</td>
+                                                                <td>${student.c_gender}</td>
+                                                                <td>${student.c_address}</td>
+                                                                <td>${languages}</td>
+                                                                <td>${student.c_course}</td>
+                                                                <td>${profileImage}</td>
+                                                                <td>${student.c_phone}</td>
+                                                                <td>
+                                                                    <a href="/Student/Edit/${student.c_id}" class="btn btn-primary">Edit</a>
+                                                                    <p> </p>
+                                                                     <button class="btn btn-danger" onclick="deleteStudent('${student.c_id}')">Delete</button>
+  
+                                                                </td>
+                                                            </tr>`;
 
                         $('#studentTable tbody').append(row);
                     });
@@ -60,7 +61,23 @@
             });
         });
 
-        
+         function deleteStudent(id) {
+            console.log("inside delete");
+            // Make an AJAX request to delete student
+            $.ajax({
+                url: 'http://localhost:5178/' + id,
+                type: 'DELETE',
+                success: function (data) {
+                    // Refresh student list after deletion
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Display error message or handle error
+                }
+            });
+        }
+
 
     </script>
 }

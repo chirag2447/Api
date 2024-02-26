@@ -95,6 +95,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete]
+        [Route("/{id}")]
         public IActionResult DeleteStudent(int id)
         {
             _studentRepository.DeleteStudent(id);
