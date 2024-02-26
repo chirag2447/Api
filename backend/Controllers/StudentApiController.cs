@@ -76,6 +76,7 @@ namespace backend.Controllers
                 {
                     student.Photo.CopyTo(stream);
                 }
+                student.c_profile = student.Photo.FileName;
 
             }
             else
@@ -94,7 +95,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        
+
         public IActionResult DeleteStudent(int id)
         {
             _studentRepository.DeleteStudent(id);

@@ -153,20 +153,52 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+
         $(document).ready(function () {
+            var studentId = new URLSearchParams(window.location.search).get('id');
+            // Fetch student data and populate form fields
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:5178/StudentApi/" + studentId, // Use the dynamic student ID
+                success: function (data) {
+                    console.log("Student:", data);
+                    // Format date of birth to 'yyyy-MM-dd'
+                    var dob = new Date(data.c_dob);
+                    var formattedDOB = dob.toISOString().split('T')[0];
+                    // Populate form fields with student data
+                    $("#c_name").val(data.c_name);
+                    $("#c_dob").val(formattedDOB); // Set the formatted date of birth
+                    $("input[name=c_gender][value=" + data.c_gender + "]").prop('checked', true);
+                    $("#c_address").val(data.c_address);
+                    $("#c_language").val(data.c_language);
+                    $("#c_course").val(data.c_course);
+                    $("#c_phone").val(data.c_phone);
+                    $("#c_id").val(data.c_id);
+                    // Assuming the 'Photo' field is a file input, you may need additional handling for this field
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching student data:", error);
+                    // Handle error if needed
+                }
+            });
+
+
+            // Function to handle form submission
             // Function to handle form submission
             $("#editForm").submit(function (event) {
                 // Prevent default form submission
                 event.preventDefault();
 
-                // Serialize form data
-                var formData = $(this).serialize();
+                // Create FormData object
+                var formData = new FormData(this);
 
                 // AJAX request to edit student API
                 $.ajax({
                     url: "http://localhost:5178/StudentApi",
                     type: "PUT",
                     data: formData,
+                    contentType: false, // Set content type to false for FormData
+                    processData: false, // Prevent jQuery from automatically processing the data
                     success: function (response) {
                         // Handle success response
                         console.log("Success:", response);
