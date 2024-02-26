@@ -161,12 +161,11 @@
                 url: "http://localhost:5178/GetCourses", // Use the correct URL for your action
                 success: function (data) {
                     // Clear existing options
-        @* $('#courseDropdown').empty(); *@
-                        // Add new options based on received data
-                        $.each(data, function (index, course) {
-                            console.log(course);
-                            $('#courseDropdown').append(`<option value="${course.c_id}">${course.c_name}</option>`);
-                        });
+
+                    $.each(data, function (index, course) {
+                        console.log(course);
+                        $('#courseDropdown').append(`<option value="${course.c_id}">${course.c_name}</option>`);
+                    });
                 }
             });
 
