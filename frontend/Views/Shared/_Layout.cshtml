@@ -29,7 +29,7 @@
                                 asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav nav-right">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <p style="text-align: center;"></p>
                         </li>
@@ -64,7 +64,7 @@
                 $("p").text("Welcome " + loggedin + "!");
             } else {
                 localStorage.username = "wrong";
-                if (window.location.href.includes("Login") || window.location.href.includes("register") || window.location.href.includes("Privacy") || window.location.href.includes("Index")) {
+                if (window.location.href.includes("Login") || window.location.href.includes("Register") || window.location.href.includes("Privacy") || window.location.href.includes("Index")) {
 
                 } else {
                     window.location.href = "/user/Login";
